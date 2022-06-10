@@ -1,9 +1,10 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/tejashwikalptaru/tutorial/handler"
-	"net/http"
 )
 
 type Server struct {
@@ -14,6 +15,9 @@ func SetupRoutes() *Server {
 	router := chi.NewRouter()
 	router.Route("/api", func(api chi.Router) {
 		api.Get("/welcome", handler.Greet)
+	})
+	router.Route("/apiAll", func(api chi.Router) {
+		api.Get("/allUsers", handler.AllUsers)
 	})
 	router.Route("/apiAdd", func(api chi.Router) {
 		api.Post("/addUser", handler.AddRow)
