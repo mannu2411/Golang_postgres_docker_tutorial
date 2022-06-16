@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/volatiletech/null"
 	"time"
+
+	"github.com/volatiletech/null"
 )
 
 type User struct {

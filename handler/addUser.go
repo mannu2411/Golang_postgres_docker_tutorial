@@ -2,22 +2,22 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/tejashwikalptaru/tutorial/database/helper"
-	"github.com/tejashwikalptaru/tutorial/models"
 	"log"
 	"net/http"
+
+	"github.com/tejashwikalptaru/tutorial/database/helper"
+	"github.com/tejashwikalptaru/tutorial/models"
 )
 
 func AddRow(writer http.ResponseWriter, request *http.Request) {
-	var req models.AddUser
-	decoder := json.NewDecoder(request.Body)
-	addErr := decoder.Decode(&req)
-	log.Printf(req.Name)
+	var addUser models.AddUser
+	addErr := json.NewDecoder(request.Body).Decode(&addUser)
+	log.Printf(addUser.Name)
 	if addErr != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	userID, err := helper.CreateUser(req.Name, req.Email)
+	userID, err := helper.CreateUser(addUser.Name, addUser.Email, addUser.Pass)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
@@ -30,8 +30,7 @@ func AddRow(writer http.ResponseWriter, request *http.Request) {
 	jsonData, jsonErr := json.Marshal(user)
 	if jsonErr != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
-		return
 	}
-
 	writer.Write(jsonData)
+	//writer = utilities.JsonFetch(user, writer)
 }

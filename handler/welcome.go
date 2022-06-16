@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/tejashwikalptaru/tutorial/database/helper"
+	"log"
 	"net/http"
+
+	"github.com/tejashwikalptaru/tutorial/database/helper"
 )
 
 func isErr(err error, typeErr string) bool {
@@ -11,7 +13,8 @@ func isErr(err error, typeErr string) bool {
 }
 
 func Greet(writer http.ResponseWriter, request *http.Request) {
-	userID, err := helper.CreateUser("test", "test@test.com")
+	userID, err := helper.CreateUser("test", "test@test.com", "test")
+	log.Printf(userID)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
@@ -26,6 +29,5 @@ func Greet(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 	writer.Write(jsonData)
 }

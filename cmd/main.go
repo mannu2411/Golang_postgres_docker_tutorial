@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/tejashwikalptaru/tutorial/database"
 	"github.com/tejashwikalptaru/tutorial/server"
 )
@@ -12,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("connected")
+	fmt.Println("Connected")
 	srv := server.SetupRoutes()
 	err = srv.Run(":8080")
 	if err != nil {

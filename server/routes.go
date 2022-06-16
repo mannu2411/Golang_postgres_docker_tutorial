@@ -15,17 +15,10 @@ func SetupRoutes() *Server {
 	router := chi.NewRouter()
 	router.Route("/api", func(api chi.Router) {
 		api.Get("/welcome", handler.Greet)
-	})
-	router.Route("/apiAll", func(api chi.Router) {
 		api.Get("/allUsers", handler.AllUsers)
-	})
-	router.Route("/apiAdd", func(api chi.Router) {
 		api.Post("/addUser", handler.AddRow)
-	})
-	router.Route("/apiUpdate", func(api chi.Router) {
+		api.Post("/signin", handler.SignInUser)
 		api.Put("/updateUser", handler.UpdateRow)
-	})
-	router.Route("/apiDelete", func(api chi.Router) {
 		api.Delete("/deleteUser", handler.DeleteRow)
 	})
 

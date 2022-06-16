@@ -10,16 +10,15 @@ import (
 )
 
 func DeleteRow(writer http.ResponseWriter, request *http.Request) {
-	var req models.UpdateUser
-	decoder := json.NewDecoder(request.Body)
-	addErr := decoder.Decode(&req)
-	log.Printf(req.ID)
+	var delete_user models.UpdateUser
+	addErr := json.NewDecoder(request.Body).Decode(&delete_user)
+	log.Printf(delete_user.ID)
 	if addErr != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	userID, err := helper.DeleteUser(req.ID)
+	userID, err := helper.DeleteUser(delete_user.ID)
 	log.Printf(userID)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)

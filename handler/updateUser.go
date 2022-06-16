@@ -2,23 +2,24 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/tejashwikalptaru/tutorial/database/helper"
-	"github.com/tejashwikalptaru/tutorial/models"
 	"log"
 	"net/http"
+
+	"github.com/tejashwikalptaru/tutorial/database/helper"
+	"github.com/tejashwikalptaru/tutorial/models"
 )
 
 func UpdateRow(writer http.ResponseWriter, request *http.Request) {
-	var req models.UpdateUser
+	var update_user models.UpdateUser
 	decoder := json.NewDecoder(request.Body)
-	addErr := decoder.Decode(&req)
-	log.Printf(req.Name)
+	addErr := decoder.Decode(&update_user)
+	log.Printf(update_user.Name)
 	if addErr != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	userID, err := helper.UpdateUser(req.Name, req.Email, req.ID)
+	userID, err := helper.UpdateUser(update_user.Name, update_user.Email, update_user.ID)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
 		return
