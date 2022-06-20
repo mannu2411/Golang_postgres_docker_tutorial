@@ -16,9 +16,14 @@ func SetupRoutes() *Server {
 	router.Route("/api", func(api chi.Router) {
 		api.Get("/welcome", handler.Greet)
 		api.Get("/allUsers", handler.AllUsers)
+		api.Get("/getTasks", handler.GetTasks)
 		api.Post("/addUser", handler.AddRow)
 		api.Post("/signin", handler.SignInUser)
+		api.Post("/signout", handler.SignOut)
+		api.Post("/addTask", handler.AddTask)
+		api.Put("/completeTask", handler.CompleteTask)
 		api.Put("/updateUser", handler.UpdateRow)
+		api.Delete("/deleteTask", handler.DeleteTask)
 		api.Delete("/deleteUser", handler.DeleteRow)
 	})
 

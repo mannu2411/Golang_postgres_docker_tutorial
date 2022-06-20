@@ -25,17 +25,22 @@ func SignInUser(writer http.ResponseWriter, request *http.Request) {
 	}
 
 	expireAt := time.Now().Add(120 * time.Second)
-	sessionId, err := helper.CreateSession(creds.Email, expireAt)
+	sessionId, err := helper.GetSession(creds.Email)
 
+	if sessionId != "" {
+		err = helper.UpdateSession(expireAt, sessionId)
+
+	} else {
+		sessionId, err = helper.CreateSession(creds.Email, expireAt)
+	}
 	if err != nil {
-
 		log.Printf("SESSION ERROR")
 		writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	http.SetCookie(writer, &http.Cookie{
-		Name:    "Session_token",
+		Name:    "session_token",
 		Value:   sessionId,
 		Expires: expireAt,
 	})

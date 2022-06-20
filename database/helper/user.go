@@ -2,7 +2,6 @@ package helper
 
 import (
 	"database/sql"
-	"time"
 
 	"github.com/tejashwikalptaru/tutorial/database"
 	"github.com/tejashwikalptaru/tutorial/models"
@@ -70,24 +69,4 @@ func DeleteUser(uid string) (string, error) {
 		return "", err
 	}
 	return userID, nil
-}
-
-func GetPass(email string) (string, error) {
-	SQL := `SELECT pass FROM users WHERE email=$1;`
-	var pass string
-	err := database.Tutorial.Get(&pass, SQL, email)
-	if err != nil {
-		return "", err
-	}
-	return pass, nil
-}
-
-func CreateSession(email string, end_at time.Time) (string, error) {
-	SQL := `INSERT INTO session(email, end_at) VALUES ($1, $2) RETURNING id;`
-	var sessionID string
-	err := database.Tutorial.Get(&sessionID, SQL, email, end_at)
-	if err != nil {
-		return "", err
-	}
-	return sessionID, nil
 }

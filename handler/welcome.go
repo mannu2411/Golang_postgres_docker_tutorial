@@ -13,7 +13,7 @@ func isErr(err error, typeErr string) bool {
 }
 
 func Greet(writer http.ResponseWriter, request *http.Request) {
-	userID, err := helper.CreateUser("test", "test@test.com", "test")
+	userID, err := helper.CreateUser("test1", "test1@test.com", "test1")
 	log.Printf(userID)
 	if err != nil {
 		writer.WriteHeader(http.StatusInternalServerError)
